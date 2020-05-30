@@ -47,8 +47,27 @@
     
     
 ## 2. Обеспечить работоспособность приложения при включенном selinux.
-  - Развернуть приложенный стенд - https://github.com/mbfx/otus-linux-adm/blob/master/selinux_dns_problems/
-  - Выяснить причину неработоспособности механизма обновления зоны (см. README);
-  - Предложить решение (или решения) для данной проблемы;
-  - Выбрать одно из решений для реализации, предварительно обосновав выбор;
-  - Реализовать выбранное решение и продемонстрировать его работоспособность.
+  - **Развернуть приложенный стенд - https://github.com/mbfx/otus-linux-adm/blob/master/selinux_dns_problems/**
+  - **Выяснить причину неработоспособности механизма обновления зоны**
+    При попытке удаленно (с рабочей станции) внести изменения в зону ddns.lab сервис named пытается создать файл named.ddns.lab.view1.jnl в папке /etc/named/dynamic/. В логах видно, что у него нет разрешения на это действие:
+    
+    ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-29-26.png)
+    
+  - **Предложить решение (или решения) для данной проблемы;**
+      Проанализируем данные лога командой `sealert -a /var/log/audit/audit.log`:
+     
+     ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-30-35.png)
+     
+      Проверим контекст каталога:
+      
+      ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-35-48.png)
+      
+      Сменим контекст домена командой `semanage fcontext -a -t named_zone_t '/etc/named/dynamic(/.*)?'` и восстанавим контекст командой `semanage fcontext -a -t named_zone_t '/etc/named/dynamic(/.*)?'`:
+   
+      ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-42-43.png)
+   
+     Попробуем удаленно внести изменения в зону ddns.lab:
+     
+      ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-43-08.png)
+
+
