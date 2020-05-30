@@ -49,6 +49,7 @@
 ## 2. Обеспечить работоспособность приложения при включенном selinux.
   - **Развернуть приложенный стенд - https://github.com/mbfx/otus-linux-adm/blob/master/selinux_dns_problems/**
   - **Выяснить причину неработоспособности механизма обновления зоны**
+    
     При попытке удаленно (с рабочей станции) внести изменения в зону ddns.lab сервис named пытается создать файл named.ddns.lab.view1.jnl в папке /etc/named/dynamic/. В логах видно, что у него нет разрешения на это действие:
     
     ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-29-26.png)
