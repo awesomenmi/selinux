@@ -36,5 +36,19 @@
     ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2014-56-24.png)
     
   - **3 способ - с помощью переключателей setsebool**
+   
+    Просмотрим политики в отношении сервиса httpd и сменим ее значение:
+   
+    ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2015-38-45.png)  
     
-  
+    Перезапустим nginx:
+    
+    ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2015-49-44.png)
+    
+    
+## 2. Обеспечить работоспособность приложения при включенном selinux.
+  - Развернуть приложенный стенд - https://github.com/mbfx/otus-linux-adm/blob/master/selinux_dns_problems/
+  - Выяснить причину неработоспособности механизма обновления зоны (см. README);
+  - Предложить решение (или решения) для данной проблемы;
+  - Выбрать одно из решений для реализации, предварительно обосновав выбор;
+  - Реализовать выбранное решение и продемонстрировать его работоспособность.
