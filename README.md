@@ -55,20 +55,25 @@
     ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-29-26.png)
     
   - **Предложить решение (или решения) для данной проблемы;**
-      Проанализируем данные лога командой `sealert -a /var/log/audit/audit.log`:
+     1. Пронализируем данные лога командой `sealert -a /var/log/audit/audit.log`:
      
-     ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-30-35.png)
+       ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-30-35.png)
      
-      Проверим контекст каталога:
+       Проверим контекст каталога:
       
-      ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-35-48.png)
+       ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-35-48.png)
       
-      Сменим контекст домена командой `semanage fcontext -a -t named_zone_t '/etc/named/dynamic(/.*)?'` и восстанавим контекст командой `semanage fcontext -a -t named_zone_t '/etc/named/dynamic(/.*)?'`:
+       Сменим контекст домена командой `semanage fcontext -a -t named_zone_t '/etc/named/dynamic(/.*)?'` и восстанавим контекст командой `semanage fcontext -a -t named_zone_t '/etc/named/dynamic(/.*)?'`:
    
-      ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-42-43.png)
+       ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-42-43.png)
    
-     Попробуем удаленно внести изменения в зону ddns.lab:
-     
-      ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-43-08.png)
+       Попробуем удаленно внести изменения в зону ddns.lab:
+      
+       ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-05-30%2022-43-08.png)
 
+      2. Согласно документации, файлы зон по умолчанию должны быть расположены в папке /var (а не в /etc) (информацию об также этом можно получить из политик selinux по умолчанию `sudo semanage fcontext -l | grep named`)
+      
+       ![alt-текст](https://raw.githubusercontent.com/awesomenmi/selinux/master/screenshots/Screenshot%20from%202020-06-02%2018-37-50.png)
+      
+       Ссылки на исправленный [playbook](https://github.com/awesomenmi/otus-linux-adm/blob/master/selinux_dns_problems/provisioning/playbook.yml) и [named.conf](https://github.com/awesomenmi/otus-linux-adm/blob/master/selinux_dns_problems/provisioning/files/ns01/named.conf) лабораторного стенда.
 
